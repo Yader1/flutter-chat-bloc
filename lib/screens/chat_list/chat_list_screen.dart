@@ -12,6 +12,8 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final authState = context.read<AuthBloc>().state;
+    //eLog(authState);
     return Scaffold(
       appBar: AppBar(
         title: const Text("ChatList"),

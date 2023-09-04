@@ -71,9 +71,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          initialRoute: GuestScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           routes: {
-            //SplashScreen.routeName: (_) => const SplashScreen(),
+            SplashScreen.routeName: (_) => const SplashScreen(),
             GuestScreen.routeName: (_) => const GuestScreen(),
             ChatListScreen.routeName: (_) => const ChatListScreen(),
             //ChatScreen.routeName: (_) => const ChatScreen(),
