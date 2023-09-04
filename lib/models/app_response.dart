@@ -6,7 +6,7 @@ part 'app_response.g.dart';
 @JsonSerializable(explicitToJson: true, genericArgumentFactories: true)
 class AppResponse<T> extends Equatable {
   /// The boolean indicates the AppResponse is success or failed
-  final bool success;
+  final bool? success;
 
   /// The message of AppResponse description
   final String message;
@@ -29,7 +29,7 @@ class AppResponse<T> extends Equatable {
   });
 
   factory AppResponse({
-    required bool success,
+    required bool? success,
     required String message,
     int? statusCode,
     String? statusMessage,
@@ -47,7 +47,7 @@ class AppResponse<T> extends Equatable {
   @override
   List<Object> get props {
     return [
-      success,
+      success ?? "",
       message,
       data ?? "",
     ];

@@ -6,11 +6,13 @@ part 'user_model.g.dart';
 
 @freezed
 class UserEntity with _$UserEntity {
+  const UserEntity._();
+
   factory UserEntity({
-    required int id,
-    required String email,
-    required String userName
-  }) = _UserModel;
+    required int? id,
+    required String? email,
+    required String? username
+  }) = _UserEntity;
 	
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
 			_$UserEntityFromJson(json);
@@ -23,5 +25,6 @@ class AuthUser with _$AuthUser {
     required String token,
   }) = _AuthUser;
 
-  factory AuthUser.fromJson(Map<String, dynamic> json) => _$AuthUserFromJson(json);
+  factory AuthUser.fromJson(Map<String, dynamic> json) =>
+      _$AuthUserFromJson(json);
 }

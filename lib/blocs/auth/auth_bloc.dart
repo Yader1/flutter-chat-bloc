@@ -26,13 +26,13 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       token: json['token'],
     );
   }
-  
+
   @override
   Map<String, dynamic>? toJson(AuthState state) {
     return {
       'isAuthenticated': state.isAuthenticated,
       'token': state.token,
-      'user': state.user != null ? state.user!.toJson() : null
+      'user': state.user != null ? state.user!.toJson() : null,
     };
   }
 }

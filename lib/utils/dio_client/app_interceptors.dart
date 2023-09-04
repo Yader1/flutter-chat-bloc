@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 //import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/blocs.dart';
 import '../../models/models.dart';
 
 class AppInterceptors extends Interceptor {
@@ -20,7 +21,7 @@ class AppInterceptors extends Interceptor {
       const fakeToken = "FakeToken";
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${fakeToken}';
 
-      //final state = AuthBloc().state;
+      final state = AuthBloc().state;
 
       //if (state.token != null) {
         //options.headers[HttpHeaders.authorizationHeader] =

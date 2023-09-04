@@ -15,14 +15,14 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 UserEntity _$UserEntityFromJson(Map<String, dynamic> json) {
-  return _UserModel.fromJson(json);
+  return _UserEntity.fromJson(json);
 }
 
 /// @nodoc
 mixin _$UserEntity {
-  int get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get userName => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $UserEntityCopyWith<$Res> {
           UserEntity value, $Res Function(UserEntity) then) =
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
-  $Res call({int id, String email, String userName});
+  $Res call({int? id, String? email, String? username});
 }
 
 /// @nodoc
@@ -52,137 +52,139 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? email = null,
-    Object? userName = null,
+    Object? id = freezed,
+    Object? email = freezed,
+    Object? username = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      email: null == email
+              as int?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_UserModelCopyWith<$Res>
+abstract class _$$_UserEntityCopyWith<$Res>
     implements $UserEntityCopyWith<$Res> {
-  factory _$$_UserModelCopyWith(
-          _$_UserModel value, $Res Function(_$_UserModel) then) =
-      __$$_UserModelCopyWithImpl<$Res>;
+  factory _$$_UserEntityCopyWith(
+          _$_UserEntity value, $Res Function(_$_UserEntity) then) =
+      __$$_UserEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String email, String userName});
+  $Res call({int? id, String? email, String? username});
 }
 
 /// @nodoc
-class __$$_UserModelCopyWithImpl<$Res>
-    extends _$UserEntityCopyWithImpl<$Res, _$_UserModel>
-    implements _$$_UserModelCopyWith<$Res> {
-  __$$_UserModelCopyWithImpl(
-      _$_UserModel _value, $Res Function(_$_UserModel) _then)
+class __$$_UserEntityCopyWithImpl<$Res>
+    extends _$UserEntityCopyWithImpl<$Res, _$_UserEntity>
+    implements _$$_UserEntityCopyWith<$Res> {
+  __$$_UserEntityCopyWithImpl(
+      _$_UserEntity _value, $Res Function(_$_UserEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? email = null,
-    Object? userName = null,
+    Object? id = freezed,
+    Object? email = freezed,
+    Object? username = freezed,
   }) {
-    return _then(_$_UserModel(
-      id: null == id
+    return _then(_$_UserEntity(
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      email: null == email
+              as int?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserModel implements _UserModel {
-  _$_UserModel({required this.id, required this.email, required this.userName});
+class _$_UserEntity extends _UserEntity {
+  _$_UserEntity({required this.id, required this.email, required this.username})
+      : super._();
 
-  factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
-      _$$_UserModelFromJson(json);
+  factory _$_UserEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_UserEntityFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String email;
+  final String? email;
   @override
-  final String userName;
+  final String? username;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, email: $email, userName: $userName)';
+    return 'UserEntity(id: $id, email: $email, username: $username)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserModel &&
+            other is _$_UserEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.userName, userName) ||
-                other.userName == userName));
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, userName);
+  int get hashCode => Object.hash(runtimeType, id, email, username);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
-      __$$_UserModelCopyWithImpl<_$_UserModel>(this, _$identity);
+  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
+      __$$_UserEntityCopyWithImpl<_$_UserEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserModelToJson(
+    return _$$_UserEntityToJson(
       this,
     );
   }
 }
 
-abstract class _UserModel implements UserEntity {
-  factory _UserModel(
-      {required final int id,
-      required final String email,
-      required final String userName}) = _$_UserModel;
+abstract class _UserEntity extends UserEntity {
+  factory _UserEntity(
+      {required final int? id,
+      required final String? email,
+      required final String? username}) = _$_UserEntity;
+  _UserEntity._() : super._();
 
-  factory _UserModel.fromJson(Map<String, dynamic> json) =
-      _$_UserModel.fromJson;
+  factory _UserEntity.fromJson(Map<String, dynamic> json) =
+      _$_UserEntity.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get email;
+  String? get email;
   @override
-  String get userName;
+  String? get username;
   @override
   @JsonKey(ignore: true)
-  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
+  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

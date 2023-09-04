@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_chat_bloc/models/app_response.dart';
-import 'package:flutter_chat_bloc/models/requests/login_request.dart';
-import 'package:flutter_chat_bloc/models/requests/register_request.dart';
 import 'package:flutter_chat_bloc/models/user_model.dart';
+import 'package:flutter_chat_bloc/models/requests/register_request.dart';
+import 'package:flutter_chat_bloc/models/requests/login_request.dart';
+import 'package:flutter_chat_bloc/models/app_response.dart';
 import 'package:flutter_chat_bloc/repositories/auth/base_auth_repository.dart';
 import 'package:flutter_chat_bloc/repositories/core/endpoints.dart';
 import 'package:flutter_chat_bloc/utils/dio_client/dio_client.dart';
 
-class AuthRepository extends BaseAuthRepository{
+class AuthRepository extends BaseAuthRepository {
   AuthRepository({
     Dio? dioClient,
   }) : _dioClient = dioClient ?? DioClient().instance;
@@ -16,46 +16,57 @@ class AuthRepository extends BaseAuthRepository{
 
   @override
   Future<AppResponse<AuthUser?>> login(LoginRequest request) async {
-    final response = await  _dioClient.post(
+    final response = await _dioClient.post(
       Endpoints.login,
       data: request.toJson(),
     );
 
-    return AppResponse<AuthUser?>.fromJson(response.data, (dynamic json) => response.data['success'] && json != null 
-      ? AuthUser.fromJson(json) : null
+    return AppResponse<AuthUser?>.fromJson(
+      response.data,
+      (dynamic json) => response.data['success'] && json != null
+          ? AuthUser.fromJson(json)
+          : null,
     );
   }
 
   @override
   Future<AppResponse<UserEntity?>> loginWithToken() async {
-    final response = await  _dioClient.post(
+    final response = await _dioClient.post(
       Endpoints.loginWithToken,
     );
 
-    return AppResponse<UserEntity?>.fromJson(response.data, (dynamic json) => response.data['success'] && json != null 
-      ? UserEntity.fromJson(json) : null
+    return AppResponse<UserEntity?>.fromJson(
+      response.data,
+      (dynamic json) => response.data['success'] && json != null
+          ? UserEntity.fromJson(json)
+          : null,
     );
   }
 
   @override
   Future<AppResponse> logout() async {
-    final response = await  _dioClient.get(
+    final response = await _dioClient.get(
       Endpoints.logout,
     );
 
-    return AppResponse.fromJson(response.data, (dynamic json) => null);
+    return AppResponse.fromJson(
+      response.data,
+      (dynamic json) => null,
+    );
   }
 
   @override
   Future<AppResponse<AuthUser?>> register(RegisterRequest request) async {
-    final response = await  _dioClient.post(
+    final response = await _dioClient.post(
       Endpoints.register,
       data: request.toJson(),
     );
 
-    return AppResponse<AuthUser?>.fromJson(response.data, (dynamic json) => response.data['success'] && json != null 
-      ? AuthUser.fromJson(json) : null
+    return AppResponse<AuthUser?>.fromJson(
+      response.data,
+      (dynamic json) => response.data['success'] && json != null
+          ? AuthUser.fromJson(json)
+          : null,
     );
   }
-
 }
