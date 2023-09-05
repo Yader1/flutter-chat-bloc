@@ -2,21 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_bloc/blocs/blocs.dart';
-//import 'package:flutter_chat_bloc/blocs/chat/chat_bloc.dart';
-//import 'package:flutter_chat_bloc/blocs/user/user_bloc.dart';
 import 'package:flutter_chat_bloc/cubits/cubits.dart';
-import 'package:flutter_chat_bloc/repositories/auth/auth_repository.dart';
-//import 'package:flutter_chat_bloc/repositories/chat/chat_respository.dart';
-//import 'package:flutter_chat_app/repositories/chat_message/chat_message_repository.dart';
-//import 'package:flutter_chat_bloc/repositories/user/user_repository.dart';
-//import 'package:flutter_chat_bloc/screens/chat/chat_screen.dart';
 import 'package:flutter_chat_bloc/screens/screens.dart';
-//import 'package:flutter_chat_bloc/screens/splash/splash_screen.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'blocs/chat/chat_bloc.dart';
-import 'repositories/chat/chat_repository.dart';
+import 'repositories/repositories.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
@@ -44,10 +35,10 @@ class MyApp extends StatelessWidget {
         /*
         RepositoryProvider<ChatMessageRepository>(
           create: (_) => ChatMessageRepository(),
-        ),
+        ),*/
         RepositoryProvider<UserRepository>(
           create: (_) => UserRepository(),
-        ),*/
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -64,11 +55,10 @@ class MyApp extends StatelessWidget {
               //chatMessageRepository: context.read<ChatMessageRepository>(),
             ),
           ),
-          /*
           BlocProvider(
             create: (context) =>
                 UserBloc(userRepository: context.read<UserRepository>()),
-          ),*/
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -20,18 +20,21 @@ mixin _$ChatEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() reset,
+    required TResult Function(UserEntity user) userSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? reset,
+    TResult? Function(UserEntity user)? userSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? reset,
+    TResult Function(UserEntity user)? userSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ChatEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ChatStarted value) started,
     required TResult Function(ChatReset value) reset,
+    required TResult Function(UserSelected value) userSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChatStarted value)? started,
     TResult? Function(ChatReset value)? reset,
+    TResult? Function(UserSelected value)? userSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatStarted value)? started,
     TResult Function(ChatReset value)? reset,
+    TResult Function(UserSelected value)? userSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +119,7 @@ class _$ChatStarted implements ChatStarted {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() reset,
+    required TResult Function(UserEntity user) userSelected,
   }) {
     return started();
   }
@@ -122,6 +129,7 @@ class _$ChatStarted implements ChatStarted {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? reset,
+    TResult? Function(UserEntity user)? userSelected,
   }) {
     return started?.call();
   }
@@ -131,6 +139,7 @@ class _$ChatStarted implements ChatStarted {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? reset,
+    TResult Function(UserEntity user)? userSelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,6 +153,7 @@ class _$ChatStarted implements ChatStarted {
   TResult map<TResult extends Object?>({
     required TResult Function(ChatStarted value) started,
     required TResult Function(ChatReset value) reset,
+    required TResult Function(UserSelected value) userSelected,
   }) {
     return started(this);
   }
@@ -153,6 +163,7 @@ class _$ChatStarted implements ChatStarted {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChatStarted value)? started,
     TResult? Function(ChatReset value)? reset,
+    TResult? Function(UserSelected value)? userSelected,
   }) {
     return started?.call(this);
   }
@@ -162,6 +173,7 @@ class _$ChatStarted implements ChatStarted {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatStarted value)? started,
     TResult Function(ChatReset value)? reset,
+    TResult Function(UserSelected value)? userSelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -215,6 +227,7 @@ class _$ChatReset implements ChatReset {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() reset,
+    required TResult Function(UserEntity user) userSelected,
   }) {
     return reset();
   }
@@ -224,6 +237,7 @@ class _$ChatReset implements ChatReset {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? reset,
+    TResult? Function(UserEntity user)? userSelected,
   }) {
     return reset?.call();
   }
@@ -233,6 +247,7 @@ class _$ChatReset implements ChatReset {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? reset,
+    TResult Function(UserEntity user)? userSelected,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -246,6 +261,7 @@ class _$ChatReset implements ChatReset {
   TResult map<TResult extends Object?>({
     required TResult Function(ChatStarted value) started,
     required TResult Function(ChatReset value) reset,
+    required TResult Function(UserSelected value) userSelected,
   }) {
     return reset(this);
   }
@@ -255,6 +271,7 @@ class _$ChatReset implements ChatReset {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChatStarted value)? started,
     TResult? Function(ChatReset value)? reset,
+    TResult? Function(UserSelected value)? userSelected,
   }) {
     return reset?.call(this);
   }
@@ -264,6 +281,7 @@ class _$ChatReset implements ChatReset {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatStarted value)? started,
     TResult Function(ChatReset value)? reset,
+    TResult Function(UserSelected value)? userSelected,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -278,11 +296,161 @@ abstract class ChatReset implements ChatEvent {
 }
 
 /// @nodoc
+abstract class _$$UserSelectedCopyWith<$Res> {
+  factory _$$UserSelectedCopyWith(
+          _$UserSelected value, $Res Function(_$UserSelected) then) =
+      __$$UserSelectedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UserEntity user});
+
+  $UserEntityCopyWith<$Res> get user;
+}
+
+/// @nodoc
+class __$$UserSelectedCopyWithImpl<$Res>
+    extends _$ChatEventCopyWithImpl<$Res, _$UserSelected>
+    implements _$$UserSelectedCopyWith<$Res> {
+  __$$UserSelectedCopyWithImpl(
+      _$UserSelected _value, $Res Function(_$UserSelected) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = null,
+  }) {
+    return _then(_$UserSelected(
+      null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserEntityCopyWith<$Res> get user {
+    return $UserEntityCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$UserSelected implements UserSelected {
+  const _$UserSelected(this.user);
+
+  @override
+  final UserEntity user;
+
+  @override
+  String toString() {
+    return 'ChatEvent.userSelected(user: $user)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserSelected &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, user);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserSelectedCopyWith<_$UserSelected> get copyWith =>
+      __$$UserSelectedCopyWithImpl<_$UserSelected>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() reset,
+    required TResult Function(UserEntity user) userSelected,
+  }) {
+    return userSelected(user);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? reset,
+    TResult? Function(UserEntity user)? userSelected,
+  }) {
+    return userSelected?.call(user);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? reset,
+    TResult Function(UserEntity user)? userSelected,
+    required TResult orElse(),
+  }) {
+    if (userSelected != null) {
+      return userSelected(user);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChatStarted value) started,
+    required TResult Function(ChatReset value) reset,
+    required TResult Function(UserSelected value) userSelected,
+  }) {
+    return userSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChatStarted value)? started,
+    TResult? Function(ChatReset value)? reset,
+    TResult? Function(UserSelected value)? userSelected,
+  }) {
+    return userSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChatStarted value)? started,
+    TResult Function(ChatReset value)? reset,
+    TResult Function(UserSelected value)? userSelected,
+    required TResult orElse(),
+  }) {
+    if (userSelected != null) {
+      return userSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserSelected implements ChatEvent {
+  const factory UserSelected(final UserEntity user) = _$UserSelected;
+
+  UserEntity get user;
+  @JsonKey(ignore: true)
+  _$$UserSelectedCopyWith<_$UserSelected> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ChatState {
   List<ChatEntity> get chats => throw _privateConstructorUsedError;
   ChatEntity? get selectedChat => throw _privateConstructorUsedError;
   DataStatus get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  int? get otherUserId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -298,7 +466,8 @@ abstract class $ChatStateCopyWith<$Res> {
       {List<ChatEntity> chats,
       ChatEntity? selectedChat,
       DataStatus status,
-      String message});
+      String message,
+      int? otherUserId});
 
   $ChatEntityCopyWith<$Res>? get selectedChat;
 }
@@ -320,6 +489,7 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
     Object? selectedChat = freezed,
     Object? status = null,
     Object? message = null,
+    Object? otherUserId = freezed,
   }) {
     return _then(_value.copyWith(
       chats: null == chats
@@ -338,6 +508,10 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      otherUserId: freezed == otherUserId
+          ? _value.otherUserId
+          : otherUserId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -365,7 +539,8 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       {List<ChatEntity> chats,
       ChatEntity? selectedChat,
       DataStatus status,
-      String message});
+      String message,
+      int? otherUserId});
 
   @override
   $ChatEntityCopyWith<$Res>? get selectedChat;
@@ -386,6 +561,7 @@ class __$$_ChatStateCopyWithImpl<$Res>
     Object? selectedChat = freezed,
     Object? status = null,
     Object? message = null,
+    Object? otherUserId = freezed,
   }) {
     return _then(_$_ChatState(
       chats: null == chats
@@ -404,6 +580,10 @@ class __$$_ChatStateCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      otherUserId: freezed == otherUserId
+          ? _value.otherUserId
+          : otherUserId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -415,7 +595,8 @@ class _$_ChatState implements _ChatState {
       {required final List<ChatEntity> chats,
       this.selectedChat,
       required this.status,
-      required this.message})
+      required this.message,
+      this.otherUserId})
       : _chats = chats;
 
   final List<ChatEntity> _chats;
@@ -432,10 +613,12 @@ class _$_ChatState implements _ChatState {
   final DataStatus status;
   @override
   final String message;
+  @override
+  final int? otherUserId;
 
   @override
   String toString() {
-    return 'ChatState(chats: $chats, selectedChat: $selectedChat, status: $status, message: $message)';
+    return 'ChatState(chats: $chats, selectedChat: $selectedChat, status: $status, message: $message, otherUserId: $otherUserId)';
   }
 
   @override
@@ -447,7 +630,9 @@ class _$_ChatState implements _ChatState {
             (identical(other.selectedChat, selectedChat) ||
                 other.selectedChat == selectedChat) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.otherUserId, otherUserId) ||
+                other.otherUserId == otherUserId));
   }
 
   @override
@@ -456,7 +641,8 @@ class _$_ChatState implements _ChatState {
       const DeepCollectionEquality().hash(_chats),
       selectedChat,
       status,
-      message);
+      message,
+      otherUserId);
 
   @JsonKey(ignore: true)
   @override
@@ -470,7 +656,8 @@ abstract class _ChatState implements ChatState {
       {required final List<ChatEntity> chats,
       final ChatEntity? selectedChat,
       required final DataStatus status,
-      required final String message}) = _$_ChatState;
+      required final String message,
+      final int? otherUserId}) = _$_ChatState;
 
   @override
   List<ChatEntity> get chats;
@@ -480,6 +667,8 @@ abstract class _ChatState implements ChatState {
   DataStatus get status;
   @override
   String get message;
+  @override
+  int? get otherUserId;
   @override
   @JsonKey(ignore: true)
   _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>

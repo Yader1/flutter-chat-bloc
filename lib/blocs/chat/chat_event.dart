@@ -4,4 +4,5 @@ part of 'chat_bloc.dart';
 class ChatEvent with _$ChatEvent {
   const factory ChatEvent.started() = ChatStarted;
   const factory ChatEvent.reset() = ChatReset;
+  const factory ChatEvent.userSelected(UserEntity user) = UserSelected;
 }

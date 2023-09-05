@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:search_page/search_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat_bloc/blocs/chat/chat_bloc.dart';
 import 'package:flutter_chat_bloc/cubits/cubits.dart';
+import 'package:flutter_chat_bloc/models/models.dart';
 import 'package:flutter_chat_bloc/screens/screens.dart';
 import 'package:flutter_chat_bloc/widgets/widgets.dart';
 
@@ -18,11 +19,12 @@ class ChatListScreen extends StatelessWidget {
     final authBloc = context.read<AuthBloc>();
     final currentUser = authBloc.state.user!;
     final chatBloc = context.read<ChatBloc>();
+    final userBloc = context.read<UserBloc>();
 
-    //eLog(authState);
     return StartUpContainer(
       onInit: () async {
         chatBloc.add(const ChatStarted());
+        userBloc.add(const UserStarted());
       },
       child: Scaffold(
         appBar: AppBar(
@@ -71,11 +73,75 @@ class ChatListScreen extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            eLog("Show search user");
+        floatingActionButton: BlocSelector<UserBloc, UserState, List<UserEntity>>(
+          selector: (state) {
+            return state.map(
+              initial: (_) => [], 
+              loaded: (state) => state.users,
+            );
           },
-          child: const Icon(Icons.search),
+          builder: (context, state) {
+            return FloatingActionButton(
+                  onPressed: () => _showSearch(context, state),
+                  child: const Icon(Icons.search),
+                );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showSearch(BuildContext context, List<UserEntity> users) {
+    showSearch(
+      context: context,
+      delegate: SearchPage<UserEntity>(
+        items: users,
+        searchLabel: 'Search people',
+        suggestion: const Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.search,
+                size: 25.0,
+                color: Colors.grey,
+              ),
+              Text(
+                'Search users by username',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+        failure: const Center(
+          child: Text(
+            'No person found :(',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+        filter: (user) => [
+          user.email,
+        ],
+        builder: (user) => ListTile(
+          leading: const Icon(Icons.account_circle, size: 50.0),
+          title: Text(user.username!),
+          subtitle: Text(user.email!),
+          onTap: () {
+            /// selected user
+            context.read<ChatBloc>().add(UserSelected(user));
+
+            /// push to chat screen
+            //Navigator.of(context).pushNamed(ChatScreen.routeName);
+          },
         ),
       ),
     );

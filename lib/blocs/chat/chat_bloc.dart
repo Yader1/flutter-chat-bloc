@@ -31,5 +31,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatReset>((event, emit){
       emit(ChatState.initial());
     });
+
+    on<UserSelected>((event, emit){
+      emit(state.copyWith(otherUserId: event.user.id));
+    });
   }
 }

@@ -18,15 +18,13 @@ class AppInterceptors extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     /// Tries to add Authorization header only if Authorization header not extisted
     if (!options.headers.containsKey(HttpHeaders.authorizationHeader)) {
-      const fakeToken = "FakeToken";
-      options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${fakeToken}';
-
       final state = AuthBloc().state;
 
-      //if (state.token != null) {
-        //options.headers[HttpHeaders.authorizationHeader] =
-            //'Bearer ${state.token}';
-      //}
+      //options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${fakeToken}';
+
+      if (state.token != null) {
+        options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${state.token}';
+      }
     }
 
     return handler.next(options);
