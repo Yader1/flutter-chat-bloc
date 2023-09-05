@@ -14,6 +14,9 @@ import 'package:flutter_chat_bloc/screens/screens.dart';
 //import 'package:flutter_chat_bloc/screens/splash/splash_screen.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'blocs/chat/chat_bloc.dart';
+import 'repositories/chat/chat_repository.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
@@ -35,9 +38,10 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<AuthRepository>(
           create: (_) => AuthRepository(),
         ),
-        /*RepositoryProvider<ChatRepository>(
+        RepositoryProvider<ChatRepository>(
           create: (_) => ChatRepository(),
         ),
+        /*
         RepositoryProvider<ChatMessageRepository>(
           create: (_) => ChatMessageRepository(),
         ),
@@ -54,12 +58,13 @@ class MyApp extends StatelessWidget {
               authBloc: context.read<AuthBloc>(),
             ),
           ),
-          /*BlocProvider(
+          BlocProvider(
             create: (context) => ChatBloc(
               chatRepository: context.read<ChatRepository>(),
-              chatMessageRepository: context.read<ChatMessageRepository>(),
+              //chatMessageRepository: context.read<ChatMessageRepository>(),
             ),
           ),
+          /*
           BlocProvider(
             create: (context) =>
                 UserBloc(userRepository: context.read<UserRepository>()),
