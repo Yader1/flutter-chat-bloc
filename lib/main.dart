@@ -32,10 +32,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<ChatRepository>(
           create: (_) => ChatRepository(),
         ),
-        /*
         RepositoryProvider<ChatMessageRepository>(
           create: (_) => ChatMessageRepository(),
-        ),*/
+        ),
         RepositoryProvider<UserRepository>(
           create: (_) => UserRepository(),
         ),
@@ -52,7 +51,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ChatBloc(
               chatRepository: context.read<ChatRepository>(),
-              //chatMessageRepository: context.read<ChatMessageRepository>(),
+              chatMessageRepository: context.read<ChatMessageRepository>(),
             ),
           ),
           BlocProvider(
@@ -71,7 +70,7 @@ class MyApp extends StatelessWidget {
             SplashScreen.routeName: (_) => const SplashScreen(),
             GuestScreen.routeName: (_) => const GuestScreen(),
             ChatListScreen.routeName: (_) => const ChatListScreen(),
-            //ChatScreen.routeName: (_) => const ChatScreen(),
+            ChatScreen.routeName: (_) => const ChatScreen(),
           },
         ),
       ),

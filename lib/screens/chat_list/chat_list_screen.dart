@@ -140,7 +140,7 @@ class ChatListScreen extends StatelessWidget {
             context.read<ChatBloc>().add(UserSelected(user));
 
             /// push to chat screen
-            //Navigator.of(context).pushNamed(ChatScreen.routeName);
+            Navigator.of(context).pushNamed(ChatScreen.routeName);
           },
         ),
       ),
