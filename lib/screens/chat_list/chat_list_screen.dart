@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_bloc/screens/chat_list/chat_list_item.dart';
 import 'package:search_page/search_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_bloc/cubits/cubits.dart';
@@ -55,23 +56,39 @@ class ChatListScreen extends StatelessWidget {
             )
           ],
         ),
-        body: BlocConsumer<ChatBloc, ChatState>(
-          listener: (_, __) {},
-          builder: (context, state) {
-            if(state.chats.isEmpty){
-              return const BlankContent(
-                content: "No chat available",
-                icon: Icons.chat_rounded,
-              );
-            }
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                return Text("Hola");
-              },
-              separatorBuilder: (_, __) => const Divider(height: 1.5),
-              itemCount: state.chats.length
-            );
+        body: RefreshIndicator(
+          onRefresh: () async {
+            chatBloc.add(const ChatStarted());
+            userBloc.add(const UserStarted());
           },
+          child: BlocConsumer<ChatBloc, ChatState>(
+            listener: (_, __) {},
+            builder: (context, state) {
+              if(state.chats.isEmpty){
+                return const BlankContent(
+                  content: "No chat available",
+                  icon: Icons.chat_rounded,
+                );
+              }
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  final item = state.chats[index];
+        
+                  return ChatListItem(
+                    key: ValueKey(item.id),
+                    item: item, 
+                    currentUser: currentUser, 
+                    onPressed: (chat){
+                      chatBloc.add(ChatSelected(chat));
+                      Navigator.of(context).pushNamed(ChatScreen.routeName);
+                    }
+                  );
+                },
+                separatorBuilder: (_, __) => const Divider(height: 1.5),
+                itemCount: state.chats.length
+              );
+            },
+          ),
         ),
         floatingActionButton: BlocSelector<UserBloc, UserState, List<UserEntity>>(
           selector: (state) {

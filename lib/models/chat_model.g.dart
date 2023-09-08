@@ -17,6 +17,9 @@ _$_ChatEntity _$$_ChatEntityFromJson(Map<String, dynamic> json) =>
           ? null
           : ChatMessageEntity.fromJson(
               json['last_message'] as Map<String, dynamic>),
+      participants: (json['participants'] as List<dynamic>)
+          .map((e) => ChatParticipantEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ChatEntityToJson(_$_ChatEntity instance) =>
@@ -27,4 +30,5 @@ Map<String, dynamic> _$$_ChatEntityToJson(_$_ChatEntity instance) =>
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
       'last_message': instance.lastMessage,
+      'participants': instance.participants,
     };

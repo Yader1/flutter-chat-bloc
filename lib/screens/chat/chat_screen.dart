@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/blocs.dart';
+import '../../models/models.dart';
 import '../../utils/logger.dart';
+import '../../utils/utils.dart';
 import '../../widgets/startup_container.dart';
 import 'data.dart';
 
@@ -17,35 +19,50 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  List<ChatMessage> messages = basicSample;
+  //List<ChatMessage> messages = basicSample;
 
   @override
   Widget build(BuildContext context) {
     final chatBloc = context.read<ChatBloc>();
+    final authBloc = context.read<AuthBloc>();
 
     return StartUpContainer(
       onInit: () {
         chatBloc.add(const GetChatMessage());
+      },
+      onDisposed: (){
+        chatBloc.add(const ChatReset());
+        chatBloc.add(const ChatStarted());
       },
       child: Scaffold(
         appBar: AppBar(
           title: BlocConsumer<ChatBloc, ChatState>(
             listener: (_, __) {},
             builder: (context, state) {
-              return Text("Other user name");
+              final chat = state.selectedChat;
+
+              return Text(
+                chat == null ?
+                "N/A" :
+                getChatName(chat.participants, authBloc.state.user!),
+              );
             },
           ),
         ),
         body: BlocBuilder<ChatBloc, ChatState>(
           builder: (context, state) {
             return DashChat(
-              currentUser: user,
+              currentUser: authBloc.state.user!.toChatUser,
               onSend: (ChatMessage chatMessage) {
-                vLog("add new message to messages");
+                chatBloc.add(SendMessage(
+                  state.selectedChat!.id,
+                  chatMessage
+                ));
               },
-              messages: messages,
+              messages: state.uiChatMessage,
               messageListOptions: MessageListOptions(onLoadEarlier: () async {
-                await Future.delayed(const Duration(seconds: 3));
+                chatBloc.add(const LoadMoreChatMessage());
+                //await Future.delayed(const Duration(seconds: 3));
               }),
             );
           },

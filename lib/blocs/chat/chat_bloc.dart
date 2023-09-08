@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_chat_bloc/models/requests/requests.dart';
 import 'package:flutter_chat_bloc/repositories/repositories.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -35,7 +37,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
 
     on<ChatReset>((event, emit){
-      emit(ChatState.initial());
+      emit(state.copyWith(
+        chatMessage: [],
+        message: '',
+        status: DataStatus.initial,
+        selectedChat: null,
+        otherUserId: null,
+        isLastPage: false,
+        page: 1,
+        chats: (event.shouldResetChat != null && event.shouldResetChat!) ? [] : state.chats,
+      ));
     });
 
     on<UserSelected>((event, emit){
@@ -83,6 +94,71 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           message: result.message,
         ));
       }
+    });
+
+    on<SendMessage>((event, emit) async {
+      if(state.status.isSubmitting) return;
+      emit(state.copyWith(status : DataStatus.submitting));
+
+      final result = await _chatMessageRepository.createChatMessage(
+        CreateChatMessageRequest(
+          chatId: event.chatId, 
+          message: event.message.text,
+        )
+      );
+
+      if(result.success!){
+        final messages = [result.data!, ...state.chatMessage];
+
+        emit(
+          state.copyWith(
+            chatMessage: messages,
+            status: DataStatus.loaded,
+          )
+        );
+      }else{
+        emit(
+          state.copyWith(
+            status: DataStatus.loaded,
+          )
+        );
+      }
+    });
+
+    on<LoadMoreChatMessage>((event, emit) async {
+      if(state.status.isLoadingMore || state.isLastPage) return;
+
+      emit(state.copyWith(status: DataStatus.loadingMore));
+
+      final newPage = state.page + 1;
+
+      final result = await _chatMessageRepository.getChatMessage(chatId: state.selectedChat!.id, page: newPage);
+
+      if(result.success!){
+        final newMessages = result.data ?? [];
+
+        if(newMessages.isNotEmpty){
+          emit(state.copyWith(
+            chatMessage: [...state.chatMessage,...newMessages],
+            status: DataStatus.loaded,
+            page: newPage
+          ));
+        } else {
+          emit(state.copyWith(
+            status: DataStatus.loaded,
+            isLastPage: true
+          ));
+        }
+      }else{
+        emit(state.copyWith(
+            message: result.message,
+            status: DataStatus.error,
+          ));
+      }
+    });
+
+    on<ChatSelected>((event, emit) {
+      emit(state.copyWith(selectedChat: event.chat));
     });
   }
 }
