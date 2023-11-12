@@ -7,5 +7,5 @@ abstract class BaseChatMessageRepository{
     required int page,
   });
 
-  Future<AppResponse<ChatMessageEntity?>> createChatMessage(CreateChatMessageRequest request);
+  Future<AppResponse<ChatMessageEntity?>> createChatMessage(CreateChatMessageRequest request, String socketId);
 }

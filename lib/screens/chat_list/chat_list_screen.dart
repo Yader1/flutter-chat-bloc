@@ -26,6 +26,11 @@ class ChatListScreen extends StatelessWidget {
       onInit: () async {
         chatBloc.add(const ChatStarted());
         userBloc.add(const UserStarted());
+
+        LaravelEcho.init(token: authBloc.state.token!);
+      },
+      onDisposed: (){
+        LaravelEcho.instance.disconnect();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -150,7 +155,7 @@ class ChatListScreen extends StatelessWidget {
         ],
         builder: (user) => ListTile(
           leading: const Icon(Icons.account_circle, size: 50.0),
-          title: Text(user.username!),
+          title: Text(user.username.toString()),
           subtitle: Text(user.email!),
           onTap: () {
             /// selected user

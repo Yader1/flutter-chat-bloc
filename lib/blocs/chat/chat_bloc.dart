@@ -104,7 +104,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         CreateChatMessageRequest(
           chatId: event.chatId, 
           message: event.message.text,
-        )
+        ),
+        event.socketId,
       );
 
       if(result.success!){
@@ -159,6 +160,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<ChatSelected>((event, emit) {
       emit(state.copyWith(selectedChat: event.chat));
+    });
+  
+    on<AddNewMessage>((event, emit) {
+      emit(state.copyWith(
+        chatMessage: [event.message, ...state.chatMessage],
+      ));
     });
   }
 }
